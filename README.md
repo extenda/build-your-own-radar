@@ -4,7 +4,7 @@ A library that generates an interactive radar, inspired by [thoughtworks.com/rad
 
 ## Demo
 
-You can see this in action at https://radar.thoughtworks.com. If you plug in [this data](https://docs.google.com/spreadsheets/d/1YXkrgV7Y6zShiPeyw4Y5_19QOfu5I6CyH5sGnbkEyiI/) you'll see [this visualization](https://radar.thoughtworks.com/?sheetId=1YXkrgV7Y6zShiPeyw4Y5_19QOfu5I6CyH5sGnbkEyiI). 
+You can see this in action at https://radar.thoughtworks.com. If you plug in [this data](https://docs.google.com/spreadsheets/d/1YXkrgV7Y6zShiPeyw4Y5_19QOfu5I6CyH5sGnbkEyiI/) you'll see [this visualization](https://radar.thoughtworks.com/?sheetId=1YXkrgV7Y6zShiPeyw4Y5_19QOfu5I6CyH5sGnbkEyiI).
 
 ## How To Use
 
@@ -27,7 +27,7 @@ Create a Google Sheet. Give it at least the below column headers, and put in the
 
 * In Google sheets, go to 'File', choose 'Publish to the web...' and then click 'Publish'.
 * Close the 'Publish to the web' dialog.
-* Copy the URL of your editable sheet from the browser (Don't worry, this does not share the editable version). 
+* Copy the URL of your editable sheet from the browser (Don't worry, this does not share the editable version).
 
 The URL will be similar to [https://docs.google.com/spreadsheets/d/1waDG0_W3-yNiAaUfxcZhTKvl7AUCgXwQw8mdPjCz86U/edit](https://docs.google.com/spreadsheets/d/1waDG0_W3-yNiAaUfxcZhTKvl7AUCgXwQw8mdPjCz86U/edit). In theory we are only interested in the part between '/d/' and '/edit' but you can use the whole URL if you want.
 
@@ -71,11 +71,21 @@ $ docker run --rm -p 8080:80 -e SERVER_NAMES="localhost 127.0.0.1" wwwthoughtwor
 $ open http://localhost:8080
 ```
 
+### Read Sheet from URL
+
+Use the `RADAR_SHEET_URL` environment variable to automatically load a selected Google Sheet when loading the `/` location.
+
+```
+$ docker build -t build-your-own-radar .
+$ docker run --rm -d -p 80:80 -e "RADAR_SHEET_URL=https://docs.google.com/spreadsheets/d/XYZ/edit" build-your-own-radar
+$ open http://localhost
+```
+
 ## Contribute
 
 All tasks are defined in `package.json`.
 
-Pull requests are welcome; please write tests whenever possible. 
+Pull requests are welcome; please write tests whenever possible.
 Make sure you have nodejs installed.
 
 - `git clone git@github.com:thoughtworks/build-your-own-radar.git`
@@ -85,6 +95,8 @@ Make sure you have nodejs installed.
 
 ### Don't want to install node? Run with one line docker
 
-     $ docker run -p 8080:8080 -v $PWD:/app -w /app -it node:7.3.0 /bin/sh -c 'npm install && npm run dev'
+```
+$ docker run -p 8080:8080 -v $PWD:/app -w /app -it node:7.3.0 /bin/sh -c 'npm install && npm run dev'
+```
 
 After building it will start on localhost:8080

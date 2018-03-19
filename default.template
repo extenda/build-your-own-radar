@@ -1,15 +1,14 @@
-# default server block to handle undefined domain names
-server {
-  listen 80 default_server;
-  server_name _;
-  return 403;
-}
-
-# server block for static file serving
 server {
   listen 80;
-  server_name ${SERVER_NAMES};
+  server_name default_server;
+
   location / {
+    if ($is_args = "") {
+      # Enforce a specific radar sheet always.
+      # Using http_host to preserve originally requested port when running in
+      # Docker when host port differs from container's port.
+      return 302 $scheme://$http_host$uri?sheetId=${RADAR_SHEET_URL};
+    }
     root /opt/build-your-own-radar;
     index index.html;
   }
