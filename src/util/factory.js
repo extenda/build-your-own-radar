@@ -47,7 +47,9 @@ const plotRadar = function (title, blips) {
         radar.addQuadrant(quadrant)
     });
 
-    var size = (window.innerHeight - 133) < 620 ? 620 : window.innerHeight - 133;
+    // Original calculation is a bit broken. Hardcoded 620 looks OK.
+    //var size = (window.innerHeight - 133) < 620 ? 620 : window.innerHeight - 133;
+    var size = 620;
 
     new GraphingRadar(size, radar).init().plot();
 }
@@ -164,7 +166,7 @@ const FileName = function (url) {
 
 const GoogleSheetInput = function () {
     var self = {};
-    
+
     self.build = function () {
         var domainName = DomainName(window.location.search.substring(1));
         var queryParams = QueryParams(window.location.search.substring(1));
